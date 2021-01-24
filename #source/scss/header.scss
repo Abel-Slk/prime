@@ -1,0 +1,204 @@
+//====================================================================================================
+header{padding: 29px 0px 33px 0px;background-color: #fff;
+	@media (max-width:$md2+px){
+		padding: 5px 0px 5px 0px;
+	}
+}
+//====================================================================================================
+.header-container{max-width:868px;margin: 0 auto;width: 100%;
+	@media (max-width:$md1+px){max-width: 750px;}
+	@media (max-width:$md2+px){max-width: none;padding:0 10px;}
+}
+.header-top {
+	@include flexbox();
+	justify-content: space-between;
+	@media (max-width:$md2+px){
+		justify-content: flex-end;
+		padding: 25px 0px 0px 0px;
+	}
+	@media (max-width:$md4+px){
+		padding: 15px 0px 0px 0px;
+	}
+}
+.header-top-lang {
+	@include flexbox();
+	@media (max-width:$md2+px){
+		margin: 0px 0px 15px 0px;
+	}
+}
+.header-top-lang__item {
+	display: block; // actually this doesn't seem to be needed (doesn't change anything). yes a initially was inline but we turned header-top-lang into a flex container - so header-top-lang__item is now a flex element - and it we don't really need to make it a block element anymore! Flex elements can already be given w&h, p&m!
+	line-height: 19px;
+	color: #000;
+	font-size: 14px; // авокод написал 10 - но через pixel perfect увидели что там точно побольше
+	text-transform: uppercase;
+	font-family: Bebas;
+	letter-spacing: 1px;
+	padding: 0px 4px; // 4px до границ - будет заметно при active
+	margin: 0px 10px 0px 0px;
+	&.active{
+		background-color: #000;
+		color: #fff;
+	}
+}
+.header-top__link {
+	position: relative;
+	z-index: 11;
+
+	font-family: 'AkzidenzGroteskBQCondensedBold';
+	text-transform: uppercase;
+	text-decoration: underline;
+	font-size: 15px;
+	color: #000;
+	@media (max-width:$md4+px){
+		font-size: 13px;
+	}
+}
+
+.header-bottom {
+	margin: -14px 0px 0px 0px; // нижний этаж должен залезть на верхний этаж на надпись - подбираем на pixel perfect
+	@include flexbox();
+	align-items: center; // нижний этаж выстраиваю по центру (выстроится на высоте лого - потому что средняя колонка определяет высоту всего флекс-контейнера)
+	@media (max-width:$md2+px){
+		margin: -37px 0px 0px 0px;
+	}
+	@media (max-width:$md4+px){
+		margin: -27px 0px 0px 0px;
+	}
+}
+.header-bottom__column {
+	flex: 0 0 33.333%; // включим дизайнерские линии и посмотрим что у нас тут с размером колонок я вижу что эти колонки каждый из них имеет треть от ширины (здесь почему-то использовал fbt а не fbgt котор 0 1 33.333%)
+}
+.header-bottom-menu {
+	&--right{
+		.header-bottom-menu-list {
+			// margin: 0;
+			justify-content: flex-end; // при этом правые отступы заданные в header-bottom-menu-list будут по-прежнему действовать - а на последний элемент автоматически не будут действовать - видимо flex-end оказывается главнее! И получается что менять оступы на левые и не нужно совсем:
+			li{
+				margin: 0px 0px 0px 45px; 
+				// margin: 0px 0px 0px 45px !important; приводило к выезду последнего элемента меню вправо за пределы контейнера!
+				&:first-child{
+					margin: 0 ; // у последнего элемента уберем отступ у первого (как в левой части убирали у последнего)
+				}
+				&:last-child{
+					margin: 0px 0px 0px 45px; // в header-bottom-menu-list ставили 0 поэтому надо переписать на 45
+				}
+				@media (max-width:$md1+px){
+					margin: 0px 0px 0px 20px !important;
+				}
+			}
+			@media (max-width:$md2+px){
+				display: block;
+				text-align: left;
+				li{margin: 0px 0px 15px 0px !important;
+					&:last-child{margin:0px 0px 0px 0px;}
+				}
+			}
+		}
+	}
+}
+.header-bottom-menu-list {
+	@include flexbox();
+	// justify-content: space-between; // можем наложить наш pixel perfect чтобы примерно посмотреть что у нас - бывает что размеры шрифтов могут не совпадать (те что написал авокод и что реально в макете иногда может отличаться) и так далее в принципе что то подобное я и вижу например размер шрифта у языков больше на макете чем у меня указан и также я вижу что отступы у меня все-таки придется указывать как макете если мы хотим точности потому что таким хитрым и быстрым способом как justify-content: space-between просто их растянуть по колонке будет быстро но не очень по макету. по макету все-таки указано какое то расстояние не будем спорить с дизайнерами и будем делать так как у нас в макете. придется space between убрать и делать отступ:
+	li{
+		margin: 0px 45px 0px 0px;
+		&:last-child{
+			margin: 0px 0px 0px 0px; // у последнего элемента отступ уберу
+		}
+		@media (max-width:$md1+px){
+			margin: 0px 20px 0px 0px;
+		}
+	}
+	@media (max-width:$md2+px){
+		display: block;
+		li{
+			margin: 0px 0px 15px 0px !important;
+			&:last-child{
+				margin:0px 0px 0px 0px;
+			}
+		}
+	}
+}
+.header-bottom-menu__link {
+	font-family: 'AkzidenzGroteskBQCondensedBold';
+	color: #000;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+}
+.header-logo {
+	position: relative;
+	z-index: 11;
+
+	display: block; // for tac
+	text-align: center; // text-align is used for aligning the inner content of a BLOCK element. NOTE: we'll also have to make the two spans with text in header-logo containing text into block elements - cause we don't want them to be merged into single "text" - we want each of them to be on a separate line! And turn the span with the image into an inline-block element - to be able to add margins! We don't want to center a "text" of those 3 merged spans - we want to have them on 3 separate lines and center THAT! ta is inherited - so it'll work on the contents of each child! (I guess it would work on inline child elements as well - but we need to make them block to put them on separate lines)
+	// see https://www.w3schools.com/cssref/tryit.asp?filename=trycss_text-align
+}
+.header-logo__text {
+	display: block; // for each span of text to be on a separate line
+	color: #000000;
+	font-family: Bebas;
+	font-size: 10px; // авокод написал 8 - но через pixel perfect увидели что там побольше
+	text-transform: uppercase;
+	letter-spacing: 8px;
+	@media (max-width:$md2+px){
+		font-size: 8px;
+	}
+	@media (max-width:$md4+px){
+		letter-spacing: 5px;
+	}
+}
+.header-logo__image {
+	display: inline-block; // to be able to use margins (or block - I guess no difference here)
+	margin: 13px 0px 22px 0px;
+	@media (max-width:$md2+px){
+		margin: 2px 0px 5px 0px;
+		img{width: 150px;}
+	}
+	@media (max-width:$md4+px){
+		margin: 0px 0px 2px 0px;
+		img{width: 100px;}
+	}
+}
+//====================================================================================================
+.header-menu__icon{display: none;}
+
+@media (max-width:$md2+px){
+	.header-menu__icon{
+		display: block;
+		position: absolute;
+		top: 28px;
+		left:10px;
+		width:30px;
+		height: 18px;
+		cursor: pointer;
+		z-index: 5;
+		span{@include anim(0.3s,0s);top: 8px;left: 0px;position: absolute;width: 100%;height: 2px;background-color: #000;
+			&:first-child{top: 0px;}
+			&:last-child{top: auto;bottom: 0px;}
+		}
+		&.active{
+			span{@include scale(0);
+				&:first-child{@include rotate(-45deg);top: 8px;}
+				&:last-child{@include rotate(45deg);bottom: 8px;}
+			}
+		}
+	}
+	.header-menu{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		left: -120%;
+		top: 0;
+		background-color: #fff;
+		padding: 65px 10px 0px 10px;
+		@include anim(0.6s,0s);
+		&.active{
+			left: 0;
+		}
+	}
+}
+@media (max-width:$md4+px){
+	.header-menu__icon{top: 18px;}
+}
