@@ -29,9 +29,28 @@ ol.counter{list-style-type: none;counter-reset:item;
 	&.full{width: 100%;}
 }
 //====================================================================================================
-.ibg{background-position: center;background-size: cover;background-repeat: no-repeat;
-	img{display: none;}
+.ibg{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	img{
+		display: none;
+	}
 }
+
+// body.ie {
+// 	.ibg {
+// 		background-position: center;
+// 		background-size: cover;
+// 		background-repeat: no-repeat;
+// 	}
+// 	.ibg img {
+// 		width: 0;
+// 		height: 0;
+// 		opacity: 0;
+// 		visibility: hidden;
+// 	}
+// }
 //====================================================================================================
 .video{position: relative;overflow: hidden;height: 0;padding-bottom: 56.25%;
 	video,iframe,object,embed{position: absolute;top: 0;left: 0;width: 100%;height: 100%;}

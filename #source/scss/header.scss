@@ -43,7 +43,7 @@ header{padding: 29px 0px 33px 0px;background-color: #fff;
 }
 .header-top__link {
 	position: relative;
-	z-index: 11;
+	z-index: 11; // достаю из-под мобильного меню
 
 	font-family: 'AkzidenzGroteskBQCondensedBold';
 	text-transform: uppercase;
@@ -78,20 +78,20 @@ header{padding: 29px 0px 33px 0px;background-color: #fff;
 				margin: 0px 0px 0px 45px; 
 				// margin: 0px 0px 0px 45px !important; приводило к выезду последнего элемента меню вправо за пределы контейнера!
 				&:first-child{
-					margin: 0 ; // у последнего элемента уберем отступ у первого (как в левой части убирали у последнего)
+					margin: 0; // уберем отступ у первого (как в левой части убирали у последнего)
 				}
 				&:last-child{
-					margin: 0px 0px 0px 45px; // в header-bottom-menu-list ставили 0 поэтому надо переписать на 45
+					margin: 0px 0px 0px 45px; // в общем header-bottom-menu-list ставили 0 поэтому надо переписать на 45
 				}
 				@media (max-width:$md1+px){
 					margin: 0px 0px 0px 20px !important;
 				}
 			}
 			@media (max-width:$md2+px){
-				display: block;
-				text-align: left;
 				li{margin: 0px 0px 15px 0px !important;
-					&:last-child{margin:0px 0px 0px 0px;}
+					&:last-child {
+						margin: 0;
+					}
 				}
 			}
 		}
@@ -103,14 +103,14 @@ header{padding: 29px 0px 33px 0px;background-color: #fff;
 	li{
 		margin: 0px 45px 0px 0px;
 		&:last-child{
-			margin: 0px 0px 0px 0px; // у последнего элемента отступ уберу
+			margin: 0;
 		}
 		@media (max-width:$md1+px){
 			margin: 0px 20px 0px 0px;
 		}
 	}
 	@media (max-width:$md2+px){
-		display: block;
+		display: block; // убираю у него flex - теперь будет авт идти в колонку (и плюс justify-content: flex-end уже не будет действовать на правую часть)
 		li{
 			margin: 0px 0px 15px 0px !important;
 			&:last-child{
@@ -128,7 +128,7 @@ header{padding: 29px 0px 33px 0px;background-color: #fff;
 }
 .header-logo {
 	position: relative;
-	z-index: 11;
+	z-index: 11; // достаю из-под мобильного меню
 
 	display: block; // for tac
 	text-align: center; // text-align is used for aligning the inner content of a BLOCK element. NOTE: we'll also have to make the two spans with text in header-logo containing text into block elements - cause we don't want them to be merged into single "text" - we want each of them to be on a separate line! And turn the span with the image into an inline-block element - to be able to add margins! We don't want to center a "text" of those 3 merged spans - we want to have them on 3 separate lines and center THAT! ta is inherited - so it'll work on the contents of each child! (I guess it would work on inline child elements as well - but we need to make them block to put them on separate lines)

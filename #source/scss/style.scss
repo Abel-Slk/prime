@@ -43,9 +43,8 @@ $fontfamily:"PT Sans"; // можем так написать через проб
 $minwidth:320px;
 $mw:880;
 $md1:$mw+12;
-// пришлось сделать брейкпойнты поменьше потому что контейнер в макете маленький:
-$md2:767.98;
-$md3:767.98;
+$md2:767.98; // пришлось сделать 2й брейкпойнт поменьше потому что контейнер в макете маленький
+$md3:767.98; // 3й брейкпойнт оставили хоть он и такой же - потому что в шаблоне просто есть где уже используется $md3 и $md4
 $md4:479.98;
 //</ПЕРЕМЕННЫЕ>
 
@@ -85,9 +84,18 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 //</ОБОЛОЧКА>
 
 //<ОСНОВНАЯ СЕТКА>
-.container{max-width:$mw+px;margin: 0 auto;width: 100%;
-	@media (max-width:$md1+px){max-width: 750px;}
-	@media (max-width:$md2+px){max-width: none;padding:0 10px;}
+.container{
+	max-width:$mw+px;
+	margin: 0 auto;
+	width: 100%;
+
+	@media (max-width:$md1+px){
+		max-width: 750px;
+	}
+	@media (max-width:$md2+px){
+		max-width: none;
+		padding:0 10px;
+	}
 }
 //</ОСНОВНАЯ СЕТКА>
 
@@ -109,7 +117,8 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 		margin: 0px 0px 40px 0px;
 	}
 }
-.private__column {flex: 0 0 50%;
+.private__column {
+	flex: 0 0 50%;
 	@media (max-width:$md2+px){
 		flex: 1 1 100%;
 		&:first-child{
@@ -118,7 +127,17 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	}
 }
 .private__image {
-	height: 100%;
+	height: 100%; // отводим место под картинку. В данном случае нужно чтобы картинка заняла всю высоту колонки (чья высота определяется высотой контента второй колонки)
+	
+	position: relative;
+	img {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 50%;
+	  height: 100%;
+	  object-fit: cover;
+	}
 }
 .private-body {
 	padding: 75px 20px 75px 60px;
@@ -126,7 +145,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 		padding: 30px 20px 30px 30px;
 	}
 }
-.private-body-content{
+.private-body-content{ // для дополнительно ограничения private-body по ширине
 	max-width: 305px;
 }
 
