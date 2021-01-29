@@ -213,7 +213,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 }
 .products-item__image {
 	display: block;
-	padding: 0px 0px 100% 0px; // отводим место под картинку
+	padding: 0px 0px 102.3% 0px; // отводим место под картинку. Начал с 58% и подгонял пока не довел до высоты 225 как в макете. Это процент от ширины родителя - а та в данном случае 220 пикс - поэтому получается немного больше 100%
 
 	position: relative;
 	img {
