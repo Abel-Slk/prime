@@ -6,15 +6,16 @@ footer{}
 	justify-content: space-between;
 	align-items: center;
 	@media (max-width:$md2+px){
-		height: auto;
-		padding: 15px 0;
 		flex-direction: column;
+
+		height: auto; // убираю высоту и  ставлю паддинги
+		padding: 15px 0;
 	}
 }
 .footer-body__column {
 	@media (max-width:$md2+px){
 		&:first-child{
-			@include flexorder(2);
+			@include flexorder(2); // чтобы копирайт шел снизу
 		}
 		&:last-child{
 			@include flexorder(1);
@@ -26,8 +27,12 @@ footer{}
 	color: #4d4d4d;
 	font-size: 15px;
 	line-height: 25px;
-	a{text-decoration: underline;color: #4d4d4d;
-		&:hover{text-decoration: none;}
+	a{
+		text-decoration: underline;
+		color: #4d4d4d;
+		&:hover{
+			text-decoration: none;
+		}
 	}
 	@media (max-width:$md2+px){
 		text-align: center;
