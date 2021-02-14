@@ -16,7 +16,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
 @font-face {
 	font-family: 'AkzidenzGroteskBQCondensedBold';
-	src: url('../fonts/AkzidenzGroteskBQCondensedBold.eot'); // even though we're in style.scss, we write just ../ - cause after compilation we'll be in css/style.css! 
+	src: url('../fonts/AkzidenzGroteskBQCondensedBold.eot');
 	src: local('☺'), url('../fonts/AkzidenzGroteskBQCondensedBold.woff') format('woff'), url('../fonts/AkzidenzGroteskBQCondensedBold.ttf') format('truetype'), url('../fonts/AkzidenzGroteskBQCondensedBold.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -35,7 +35,7 @@
 
 
 //<Шрифт по умолчанию>
-$fontfamily:"PT Sans"; // можем так написать через пробел когда вверху с гугла подключен как PT+Sans
+$fontfamily:"PT Sans";
 //</Шрифт по умолчанию>
 //</ШРИФТЫ>
 
@@ -100,13 +100,14 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 //</ОСНОВНАЯ СЕТКА>
 
 //<ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>
-//@import "datepicker.scss";
-//@import "popover.min.scss";
-//@import "baguetteBox.scss";
-//@import "pagging.scss";
 @import "header.scss";
 @import "footer.scss";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>
+@import "forms.scss";
+@import "ui.scss";
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>
 
 //<ОСНОВНОЙ БЛОК>
 .private {
@@ -127,7 +128,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	}
 }
 .private__image {
-	height: 100%; // отводим место под картинку. В данном случае нужно чтобы картинка заняла всю высоту колонки (чья высота определяется высотой контента второй колонки)
+	height: 100%;
 	
 	position: relative;
 	img {
@@ -145,7 +146,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 		padding: 30px 20px 30px 30px;
 	}
 }
-.private-body-content{ // для доп ограничения private-body по ширине
+.private-body-content{
 	max-width: 305px;
 }
 
@@ -184,7 +185,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 }
 //============================================
 .products {
-	margin: 0px 0px 40px 0px; // всего отступ вниз должен быть 80 - но в данном случае половину 40 пикс делаем от всего блока products и половину от колонок products__column - так изначально общий отступ в итоге те же 80 пикс - но при этом на 2м брейкпойнте когда колонки начинаем переносить вниз - там колонки не будут слипаться а между ними будет отступ 40 пикс. И также на 2м брейкпойнте уже можно уменьшить общий отступ - поэтому из 80 пикс сделаем 40 убрав отступ от всего блока:
+	margin: 0px 0px 40px 0px;
 	@media (max-width:$md2+px){
 		margin: 0;
 	}
@@ -209,11 +210,11 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	@include flexbox();
 	flex-direction: column;
 
-	height: 100%; // занять всю высоту колонки
+	height: 100%;
 }
 .products-item__image {
 	display: block;
-	padding: 0px 0px 102.3% 0px; // отводим место под картинку. Начал с 58% и подгонял пока не довел до высоты 225 как в макете. Это процент от ширины родителя - а та в данном случае 220 пикс - поэтому и получается немного больше 100%
+	padding: 0px 0px 102.3% 0px;
 
 	position: relative;
 	img {
@@ -233,7 +234,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 }
 .products-item__title {
 	height: 50px;
-	overflow: hidden; // см коммент к products-item__text
+	overflow: hidden;
 
 	padding: 0px 10px 0px 0px;
 	max-width: 185px;
@@ -253,12 +254,10 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	}
 }
 .products-item__text {
-	flex: 1 1 auto; // чтобы текст макс растянулся по высоте колонок. Высота колонок определяется высотой самой высокой - и теперь текст давит на кнопки и вне зависимости от количества текста прижмет кнопки книзу и все кнопки будут на одном уровне во всех колонках. (Для этого еще нужно чтобы products-item был сам растянут на всю высоту колонки через height: 100%)
-	// Note: это не является полноценным решением проблемы выравнивания, если длина заголовков products-item__title будет меняться: ех если уберем слово в заголовке одной из колонок то будет плясать уже текст products-item__text. (Либо если для тайтла тоже поставить flex: 1 1 auto - products-item__text будет начинаться везде на разном уровне.) И тут либо оставлять как есть - либо чтобы все-таки текст в любом случае начинался на одном уровне - можно ограничить по высоте products-item__title ех до height: 50px и скрыть все что будет больше этого через overflow: hidden. теперь если текста станет меньше в тайтле, текст не будет плясать -- но если тайтла будет больше (ех добавим еще одно слово), его конец будет скрыт (оказалась скрыта третья строчка). те здесь надо действовать по ситуации - главное что текст теперь норм - и скорее всего будет разное количество текста а не тайтла - поэтому хотя бы с текстом этот вопрос урегулировали
-	// also see .why-body-item-body__title
+	flex: 1 1 auto;
 
 	padding: 0px 10px 0px 0px;
-	max-width: 185px; // в макете 175 но поскольку еще добавили паддинг на всякий случай то чтобы контент был макс 175 надо включить паддинг в max-width
+	max-width: 185px;
 
 	font-size: 15px;
 	line-height: 25px;
@@ -347,7 +346,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	@include flexbox();
 }
 .why-body-item__icon {
-	flex: 0 0 100px; // для флекс-элементов ширину надо задавать так а не через width: 100px
+	flex: 0 0 100px;
 	height: 100px;
 	@include flexbox();
 	justify-content:center;align-items: center;
@@ -362,15 +361,14 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	}
 }
 .why-body-item-body {
-	flex: 1 1 auto; // исправил с 1 1 100% - в данном случае они дают одинаковый результат - но auto вообще навер здесь лучше по смыслу (и так было in the "flex" proj): 1 1 auto это те можно увеличиваться и уменьшаться и занять сколько сможешь - а 1 1 100% это получается занять всю 100% ширину колонки (и тем самым нарушить всю структуру если есть еще другие флекс-элементы) - но потом сжать чтобы нормально уместить
-	// Вообще навер лучше эти вещи использовать по назначению - auto когда флекс-элементов несколько и надо занять свободное место которое осталось после размещения других флекс элементов - а 100% использовать когда флекс-элементу надо занять именно 100% - и это ех было использовано для создания фуллскрина
+	flex: 1 1 auto;
 
 	@include flexbox();
 	flex-direction: column;
 	padding: 0px 0px 0px 11px;
 }
 .why-body-item-body__title {
-	flex: 1 1 auto; // аналогично как в products-item__text - только здесь чтобы уже тайтлом занять все свободное место и прибить текст книзу. (Можно и flex: 1 1 100% - разницы не будет - потому что хоть базовый размер и занимает все 100% и вытесняет текст - но разрешение сжиматься это корректирует. Вот 1 0 100% нельзя - так тайтл займет все 100% и вытеснит текст)
+	flex: 1 1 auto;
 	font-family: 'AkzidenzGroteskBQCondensedBold';
 	text-transform: uppercase;
 	letter-spacing: 2.5px;
@@ -413,8 +411,8 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	font-size: 15px;
 	color: #000;
 	display: inline-block;
-	line-height: 27px; // у самой большой иконки высота 27 - и вот по ней и делаем line-height
-	padding: 0px 0px 0px 35px; // отводим место под иконку слева - в макете ширина самой широкой из иконок 27 пикс и после нее еще 9 пикс - поэтому пусть всего будет ех 35
+	line-height: 27px;
+	padding: 0px 0px 0px 35px;
 }
 .contacts-body__item--1 {
 	background: url('../img/contacts/01.svg') left no-repeat;
@@ -438,7 +436,7 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 	@include flexbox();
 	background-color: #000;
 	@media (max-width:$md2+px){
-		display: block; // просто убираю колоночность
+		display: block;
 	}
 }
 .contacts-content__column {
@@ -478,8 +476,3 @@ h1,h2,h3,h4,h5,h6{font-weight: inherit;font-size: inherit;}
 
 
 //</ОСНОВНОЙ БЛОК>
-
-//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>
-@import "forms.scss";
-@import "ui.scss";
-//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>
